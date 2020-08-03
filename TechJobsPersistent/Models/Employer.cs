@@ -1,4 +1,6 @@
 ﻿using System;
+
+
 namespace TechJobsPersistent.Models
 {
     public class Employer
@@ -18,3 +20,6 @@ namespace TechJobsPersistent.Models
         }
     }
 }
+
+//TODO:  1. CREATE employer LIST
+//TODO:  2. UPDATE employer controller and AddEmployerVM
