@@ -16,11 +16,6 @@ namespace TechJobsPersistent.ViewModels
         [Required(ErrorMessage = "Location is required")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Location must be between 3 and 50 characters.")]
         public string Location { get; set; }
-
-
-        public  AddEmployerViewModel()
-        {
-        }
     }
 
 }

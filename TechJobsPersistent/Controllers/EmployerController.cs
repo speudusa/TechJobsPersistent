@@ -20,56 +20,49 @@ namespace TechJobsPersistent.Controllers
         {
             context = dbContext;
         }
+
         // GET: /<controller>/
         public IActionResult Index()
         {
-            Employer employers = context.Employers.ToList();  //am i making a list here?
+            List<Employer> employers = context.Employers
+                .ToList(); 
+
             return View(employers);
         }
 
-        [HttpPost]
-        public IActionResult Add(AddEmployerViewModel addEmployerViewModel)
+        [HttpGet]
+        public IActionResult Add()
         {
-            AddEmployerViewModel addEmployerViewModel = new AddEmployerViewModel
-            {
-                Name = addEmployerViewModel.Name,
-                Location = addEmployerViewModel.Location
-            }; 
-
-            //what am I adding this to???
+            AddEmployerViewModel addEmployerViewModel = new AddEmployerViewModel();
+            
             return View(addEmployerViewModel);
         }
 
-        //TODO: Add the appropriate code to ProcessAddEmployerForm() 
-            //so that it will process form submissions and make sure that 
-            //only valid Employer objects are being saved to the database
-
-            //Chapter 15  - both viewModels & validation
-
         [HttpPost] 
-        public IActionResult ProcessAddEmployerForm(AddEmployerViewModel addEmployerViewModel) //UPDATE with LIST of Employers
+        public IActionResult ProcessAddEmployerForm(AddEmployerViewModel addEmployerViewModel) 
         {
             if (ModelState.IsValid)
             {
-                context.AddEmployerViewModel.Add();  //not sure what to do with this 
-                context.SaveChanges();
-                return Redirect("/Employers/"); 
-            }
+                Employer newEmployers = new Employer
+                {
+                    Name = addEmployerViewModel.Name,
+                    Location = addEmployerViewModel.Location
+                };
 
-            return View("Add", addEmployerViewModel);
+                context.Add(newEmployers);
+                return Redirect("/Employer/About"); 
+            }
+            return View(addEmployerViewModel);
         }
 
-        //TODO: About() currently returns a view with vital information 
-            //about each employer such as their name and location. Make sure 
-            //that the method is actually passing an Employer OBJECT to the 
-            //view for display
-
+        //TODO: 1. Fix Lambda expression!?!
         public IActionResult About(int id)
         {
-            Employer employers = (Employer)context.Employers
-                .Where(emp => emp.Id == id)
-                .Include(emp => emp.Name)
-                .Include(emp => emp.Location);
+            List<Employer> employers = context.Employers
+                .Where(e => e.Id== id)  //<--  EmployerId (from Job Model)??
+                .Include(e => e.Name)
+                .Include(e => e.Location)
+                .ToList();
 
             return View(employers);
         }

@@ -1,12 +1,39 @@
-﻿<h1>Add a Job</h1>
+﻿@using TechJobsPersistent.ViewModels;
+@model AddJobViewModel;
+
+<h1>Add a Job</h1>
 
 <form asp-controller="Home" asp-action="ProcessAddJobForm" method="post">
+
+    @*This field should be a dropdown menu with all of the employers in the database.
+        https://education.launchcode.org/csharp-web-development/chapters/enums/enums-in-models.html?highlight=dropdown%20menu
+        https://education.launchcode.org/csharp-web-development/chapters/enums/intro.html?highlight=dropdown%20menu
+
+    *@
+
     <div class="form-group">
-        <label>Name</label>
-        <input class="form-control" />
-        <span></span>
+        <label asp-for="EmployerId">Employer Id</label>
+        <input asp-for="EmployerId" />
+        <span asp-validation-for="EmployerId"></span>
     </div>
 
+    <div class="form-group">
+        <label asp-for="Name">Employer Name</label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+
+    @*This field should be a dropdown menu with all of the employers in the database*@
+
+    <div class="form-group">
+        <label asp-for="SelectListItem">Employer Id</label>
+        <input asp-for="SelectListItem" />
+        <span asp-validation-for="SelectListItem"></span>
+    </div>
+
+    @*In addition, add a link to the <div> element to add new employers.*@
+
     <input type="submit" value="Add Job" />
+
 </form>
 
