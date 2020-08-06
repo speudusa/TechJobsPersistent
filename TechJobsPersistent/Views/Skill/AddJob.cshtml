@@ -6,7 +6,7 @@
     <input type="hidden" value="@Model.Job.Id" name="JobId" />
     <div class="form-group">
         <label asp-for="SkillId">Skill</label>
-        <select asp-for="SkillId" asp-items="Model.Skills"></select>
+        <select asp-for="SkillId" asp-items="Model.Skills"/>
         <span asp-validation-for="SkillId"></span>
     </div>
     <input type="submit" value="Add Skill" />

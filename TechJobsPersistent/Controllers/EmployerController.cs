@@ -50,19 +50,15 @@ namespace TechJobsPersistent.Controllers
                 };
 
                 context.Add(newEmployers);
-                return Redirect("/Employer/About"); 
+                context.SaveChanges();
+                return Redirect("/Employer/About");
             }
             return View(addEmployerViewModel);
         }
 
-        //TODO: 1. Fix Lambda expression!?!
         public IActionResult About(int id)
         {
-            List<Employer> employers = context.Employers
-                .Where(e => e.Id== id)  //<--  EmployerId (from Job Model)??
-                .Include(e => e.Name)
-                .Include(e => e.Location)
-                .ToList();
+            Employer employers = context.Employers.Find(id);  
 
             return View(employers);
         }
